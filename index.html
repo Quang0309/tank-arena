@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro AI Tank Arena</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Pyodide CDN -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="arcade-cabinet">
+        <header class="arcade-header">
+            <h1 class="pixel-text">TANK BATTLE 2D</h1>
+            <div class="subtitle">RETRO AI STRATEGY ARENA</div>
+        </header>
+
+        <main class="arcade-content">
+            <!-- Left Dashboard: Player 1 (Yellow) -->
+            <section class="player-panel p1-panel">
+                <h2 class="pixel-text color-p1">PLAYER 1 (YELLOW)</h2>
+                <div class="stat-row">HP: <span id="p1-hp" class="stat-val">--</span></div>
+                <div class="stat-row">FUEL: <span id="p1-fuel" class="stat-val">--</span></div>
+                <div class="stat-row">BASE HP: <span id="p1-base-hp" class="stat-val">--</span></div>
+                <div class="stat-row">FACE: <span id="p1-dir" class="stat-val">--</span></div>
+                
+                <hr class="pixel-hr">
+                
+                <div class="control-select">
+                    <label for="p1-type">CONTROL TYPE:</label>
+                    <select id="p1-type">
+                        <option value="manual">Manual (WASD/Space)</option>
+                        <option value="python" selected>Python Script</option>
+                    </select>
+                </div>
+                
+                <div id="p1-file-input-container" class="file-input-container">
+                    <label class="custom-file-upload">
+                        <input type="file" id="p1-file" accept=".py">
+                        UPLOAD P1 .PY BOT
+                    </label>
+                    <div id="p1-filename" class="filename">No file selected</div>
+                </div>
+            </section>
+
+            <!-- Center Arena Grid -->
+            <section class="arena-panel">
+                <div class="canvas-container" style="position: relative;">
+                    <canvas id="gameCanvas" width="576" height="576"></canvas>
+                    <div id="thinking-indicator" style="display: none; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #0f0; border: 2px solid #0f0; padding: 10px 20px; font-family: 'Courier New', monospace; font-weight: bold; z-index: 10; box-shadow: 0 0 10px #0f0;">BOT IS THINKING...</div>
+                </div>
+                
+                <div class="arcade-controls">
+                    <button id="btn-start" class="btn pixel-text btn-green">START MATCH</button>
+                    <button id="btn-pause" class="btn pixel-text btn-yellow" disabled>PAUSE</button>
+                    <button id="btn-reset" class="btn pixel-text btn-red">RESET</button>
+                </div>
+
+                <div class="speed-control">
+                    <label for="game-speed">SPEED:</label>
+                    <input type="range" id="game-speed" min="50" max="1000" step="50" value="300">
+                    <span id="speed-val">300ms</span>
+                </div>
+            </section>
+
+            <!-- Right Dashboard: Player 2 (Green) -->
+            <section class="player-panel p2-panel">
+                <h2 class="pixel-text color-p2">PLAYER 2 (GREEN)</h2>
+                <div class="stat-row">HP: <span id="p2-hp" class="stat-val">--</span></div>
+                <div class="stat-row">FUEL: <span id="p2-fuel" class="stat-val">--</span></div>
+                <div class="stat-row">BASE HP: <span id="p2-base-hp" class="stat-val">--</span></div>
+                <div class="stat-row">FACE: <span id="p2-dir" class="stat-val">--</span></div>
+
+                <hr class="pixel-hr">
+
+                <div class="control-select">
+                    <label for="p2-type">CONTROL TYPE:</label>
+                    <select id="p2-type">
+                        <option value="manual">Manual (Arrows/Enter)</option>
+                        <option value="python" selected>Python Script</option>
+                    </select>
+                </div>
+
+                <div id="p2-file-input-container" class="file-input-container">
+                    <label class="custom-file-upload">
+                        <input type="file" id="p2-file" accept=".py">
+                        UPLOAD P2 .PY BOT
+                    </label>
+                    <div id="p2-filename" class="filename">No file selected</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Console / Game Log -->
+        <footer class="arcade-footer">
+            <div class="console-title pixel-text">SYSTEM LOG & CONSOLE</div>
+            <div id="log-window" class="log-window">
+                <div class="log-entry system-msg">[SYSTEM] Ready. Upload Python scripts or choose Manual, then press START MATCH.</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Pyodide Loader Overlay -->
+    <div id="loader-overlay" class="loader-overlay">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <div class="loader-text pixel-text">LOADING PYODIDE WASM ENGINE...</div>
+        </div>
+    </div>
+
+    <script src="game.js?v=4"></script>
+</body>
+</html>
