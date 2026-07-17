@@ -7,7 +7,7 @@ A strategy-focused, simultaneous turn-based 2D tank battle arena web application
 ![Platform](https://img.shields.io/badge/Platform-Web%20Browser-brightgreen)
 
 <p align="center">
-  <img src="screenshot.png" alt="Tank Battle 2D Gameplay" width="800"/>
+  <img src="docs/gameplay.png" alt="Tank Battle 2D Gameplay" width="800"/>
 </p>
 
 ---
